@@ -96,13 +96,13 @@
             <th scope="row">Budżet kampanii</th>
             <td>
                 <div class="input-group mb-3">
-                    <input type="number" id="campaign_budget_month" step="0.01" value="1000" class="form-control" name="">
+                    <input type="number" id="campaign_budget_month" step="0.01" value="3000" class="form-control" name="">
                     <span class="input-group-text">zł</span>
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="number" id="campaign_budget_all" step="0.01" value="0.20" class="form-control" name="">
+                    <input type="number" id="campaign_budget_all" step="0.01" value="9000" class="form-control" name="">
                     <span class="input-group-text">zł</span>
                 </div>
             </td>
@@ -114,23 +114,23 @@
         </tr>
         <tr>
             <th scope="row">Liczba konwersji</th>
-            <td>12 000</td>
-            <td>45 000</td>
+            <td id="conversion_amount_month">12 000</td>
+            <td id="conversion_amount_all">45 000</td>
         </tr>
         <tr>
             <th scope="row">Przychód</th>
-            <td>12 000zł</td>
-            <td>45 000zł</td>
+            <td id="income_month">12 000zł</td>
+            <td id="income_all">45 000zł</td>
         </tr>
         <tr>
             <th scope="row">Zysk</th>
-            <td>12 000</td>
-            <td>45 000</td>
+            <td id="profit_month">12 000</td>
+            <td id="profit_all">45 000</td>
         </tr>
         <tr>
             <th scope="row">ROI</th>
-            <td>0</td>
-            <td></td>
+            <td id="roi_month">0</td>
+            <td id="roi_all"></td>
         </tr>
         </tbody>
     </table>
@@ -145,65 +145,65 @@
             <td>miesiąc</td>
             <td>całość</td>
         </tr>
-        <tr>
-            <td>100,00%</td>
+        <tr class="loses">
+            <td data-percent="1" class="percent">100,00%</td>
             <td>-</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>99,99%</td>
+        <tr class="loses">
+            <td data-percent="0.9999" class="percent">99,99%</td>
             <td>4,383 minut</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>99,90%</td>
+        <tr class="loses">
+            <td data-percent="0.9990" class="percent">99,90%</td>
             <td>43,83 minut</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>99,80%</td>
+        <tr class="loses">
+            <td data-percent="0.9980" class="percent">99,80%</td>
             <td>1 godzina i 27,66 minut</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>99,70%</td>
+        <tr class="loses">
+            <td data-percent="0.9970" class="percent">99,70%</td>
             <td>2 godziny i 11,49 minut</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>99,50%</td>
+        <tr class="loses">
+            <td data-percent="0.9950" class="percent">99,50%</td>
             <td>3 godziny i 39,15 minut</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>98,00%</td>
+        <tr class="loses">
+            <td data-percent="0.9800" class="percent">98,00%</td>
             <td>14 godzin i 36,6 minut</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>97,00%</td>
+        <tr class="loses">
+            <td data-percent="0.9700" class="percent">97,00%</td>
             <td>21 godzin i 54,9 minut</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>95,00%</td>
+        <tr class="loses">
+            <td data-percent="0.9500" class="percent">95,00%</td>
             <td>1 dzień, 12 godzin i 31,5 min</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
-        <tr>
-            <td>90,00%</td>
+        <tr class="loses">
+            <td data-percent="0.9000" class="percent">90,00%</td>
             <td>3 dni, 1 godzina i 3 minuty</td>
-            <td></td>
-            <td></td>
+            <td class="month"></td>
+            <td class="all"></td>
         </tr>
         </tbody>
     </table>
@@ -218,16 +218,60 @@
 
     <script>
 
+        function calculate(){
             let campaign_period = $('#campaign_period').val();
             let cpc = $('#cpc').val();
-            let conversion_rate = $('#conversion_rate').val();
+            let conversion_rate = $('#conversion_rate').val()/100;
             let avg_basket_value = $('#avg_basket_value').val();
 
             let campaign_budget_month = $('#campaign_budget_month').val();
             let campaign_budget_all = $('#campaign_budget_all').val();
 
-            $('#count_click_month').text(campaign_budget_month/cpc);
-            $('#count_click_all').text(campaign_budget_all/cpc);
+
+            let count_click_month = (campaign_budget_month/cpc).toFixed(0);
+            let count_click_all = (campaign_budget_all/cpc ).toFixed(2);
+            $('#count_click_month').text(count_click_month);
+            $('#count_click_all').text(count_click_all);
+
+            let conversion_amount_month = ( count_click_month*conversion_rate ).toFixed(2);
+            let conversion_amount_all = ( count_click_all*conversion_rate ).toFixed(2);
+            $('#conversion_amount_month').text(conversion_amount_month);
+            $('#conversion_amount_all').text(conversion_amount_all);
+
+            let income_month = ( avg_basket_value*conversion_amount_month ).toFixed(2);
+            let income_all = ( avg_basket_value*conversion_amount_all ).toFixed(2);
+            $('#income_month').text(income_month+' zł');
+            $('#income_all').text(income_all+' zł');
+
+            let profit_month = ( income_month-campaign_budget_month ).toFixed(2);
+            let profit_all = ( income_all-campaign_budget_all ).toFixed(2);
+            $('#profit_month').text(profit_month + ' zł');
+            $('#profit_all').text(profit_all + ' zł');
+
+            $('#roi_month').text(( profit_month/campaign_budget_month*100 ).toFixed(2) + ' %');
+
+            $( ".loses" ).each(function( index ) {
+                let percent = $( this ).children(".percent").data('percent');
+
+                $( this ).children(".month").text( Math.round( (1-percent)*income_month )+' zł' );
+                $( this ).children(".all").text( Math.round( (1-percent)*income_all )+' zł' );
+            });
+
+            $('#campaign_budget_all').val(  (campaign_budget_month * campaign_period).toFixed(2) );
+        }
+
+        calculate();
+
+
+            $("#campaign_budget_all").on("change", function(){
+                $('#campaign_budget_month').val(  ($(this).val() / $('#campaign_period').val()).toFixed(2) );
+                calculate();
+            });
+
+            $("#campaign_period,#cpc,#conversion_rate,#avg_basket_value, #campaign_budget_month").on("change", function(){
+                calculate();
+            });
+
 
     </script>
 </body>
