@@ -56,7 +56,7 @@
             <th scope="row">CPC</th>
             <td>
                 <div class="input-group mb-3">
-                    <input type="number" id="cpc"  step="0.01" value="0.20" class="form-control" name="">
+                    <input type="" id="cpc"  step="0.01" value="0,20" class="form-control" name="">
                     <span class="input-group-text">zł</span>
                 </div>
             </td>
@@ -65,7 +65,7 @@
             <th scope="row">Wskaźnik konwersji</th>
             <td>
                 <div class="input-group mb-3">
-                    <input type="number" id="conversion_rate" step="0.01" value="1" class="form-control" name="">
+                    <input type="" id="conversion_rate" step="0,01" value="1" class="form-control" name="">
                     <span class="input-group-text">%</span>
                 </div>
             </td>
@@ -74,7 +74,7 @@
             <th scope="row">Średnia wartosc koszyka</th>
             <td>
                 <div class="input-group mb-3">
-                    <input type="number" id="avg_basket_value" step="0.01" value="200" class="form-control" name="">
+                    <input type="" id="avg_basket_value" step="0,01" value="200" class="form-control" name="">
                     <span class="input-group-text">zł</span>
                 </div>
             </td>
@@ -96,13 +96,13 @@
             <th scope="row">Budżet kampanii</th>
             <td>
                 <div class="input-group mb-3">
-                    <input type="number" id="campaign_budget_month" step="0.01" value="3000" class="form-control" name="">
+                    <input type="" id="campaign_budget_month" step="0,01" value="3000" class="form-control" name="">
                     <span class="input-group-text">zł</span>
                 </div>
             </td>
             <td>
                 <div class="input-group mb-3">
-                    <input type="number" id="campaign_budget_all" step="0.01" value="9000" class="form-control" name="">
+                    <input type="" id="campaign_budget_all" step="0,01" value="9000" class="form-control" name="">
                     <span class="input-group-text">zł</span>
                 </div>
             </td>
@@ -218,53 +218,71 @@
 
     <script>
 
+        var formatter = new Intl.NumberFormat('pl-PL', {
+            style: 'currency',
+            currency: 'PLN',
+
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+
+        var number = new Intl.NumberFormat('pl-PL', {
+            // style: 'currency',
+            // currency: 'PLN',
+
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+
         function calculate(){
             let campaign_period = $('#campaign_period').val();
-            let cpc = $('#cpc').val();
-            let conversion_rate = $('#conversion_rate').val()/100;
-            let avg_basket_value = $('#avg_basket_value').val();
+            let cpc = $('#cpc').val().replace(",", ".");
+            let conversion_rate = $('#conversion_rate').val().replace(",", ".")/100;
+            let avg_basket_value = $('#avg_basket_value').val().replace(",", ".");
 
-            let campaign_budget_month = $('#campaign_budget_month').val();
-            let campaign_budget_all = $('#campaign_budget_all').val();
+            let campaign_budget_month = $('#campaign_budget_month').val().replace(",", ".");
+            let campaign_budget_all = $('#campaign_budget_all').val().replace(",", ".");
 
 
-            let count_click_month = (campaign_budget_month/cpc).toFixed(0);
+            let count_click_month = (campaign_budget_month/cpc).toFixed(2);
             let count_click_all = (campaign_budget_all/cpc ).toFixed(2);
-            $('#count_click_month').text(count_click_month);
-            $('#count_click_all').text(count_click_all);
+            $('#count_click_month').text( number.format(count_click_month).replace(".", ","));
+            $('#count_click_all').text( number.format(count_click_all).replace(".", ","));
 
-            let conversion_amount_month = ( count_click_month*conversion_rate ).toFixed(2);
-            let conversion_amount_all = ( count_click_all*conversion_rate ).toFixed(2);
-            $('#conversion_amount_month').text(conversion_amount_month);
-            $('#conversion_amount_all').text(conversion_amount_all);
+            let conversion_amount_month = ( count_click_month*conversion_rate );
+            let conversion_amount_all = ( count_click_all*conversion_rate );
+            $('#conversion_amount_month').text( number.format(conversion_amount_month.toFixed(0)));
+            $('#conversion_amount_all').text( number.format(conversion_amount_all.toFixed(0)));
 
-            let income_month = ( avg_basket_value*conversion_amount_month ).toFixed(2);
-            let income_all = ( avg_basket_value*conversion_amount_all ).toFixed(2);
-            $('#income_month').text(income_month+' zł');
-            $('#income_all').text(income_all+' zł');
+            let income_month = avg_basket_value*conversion_amount_month;
+            let income_all = avg_basket_value*conversion_amount_all;
+            $('#income_month').text( formatter.format(income_month) );
+            $('#income_all').text( formatter.format(income_all) );
 
-            let profit_month = ( income_month-campaign_budget_month ).toFixed(2);
-            let profit_all = ( income_all-campaign_budget_all ).toFixed(2);
-            $('#profit_month').text(profit_month + ' zł');
-            $('#profit_all').text(profit_all + ' zł');
+            let profit_month = income_month-campaign_budget_month;
+            let profit_all = income_all-campaign_budget_all;
+            $('#profit_month').text( formatter.format(profit_month) );
+            $('#profit_all').text( formatter.format(profit_all) );
 
-            $('#roi_month').text(( profit_month/campaign_budget_month*100 ).toFixed(2) + ' %');
+            $('#roi_month').text(( profit_month/campaign_budget_month*100 ).toLocaleString() + ' %');
 
             $( ".loses" ).each(function( index ) {
                 let percent = $( this ).children(".percent").data('percent');
 
-                $( this ).children(".month").text( Math.round( (1-percent)*income_month )+' zł' );
-                $( this ).children(".all").text( Math.round( (1-percent)*income_all )+' zł' );
+                $( this ).children(".month").text( formatter.format( (1-percent)*income_month ));
+                $( this ).children(".all").text( formatter.format( (1-percent)*income_all ) );
             });
 
-            $('#campaign_budget_all').val(  (campaign_budget_month * campaign_period).toFixed(2) );
+            $('#campaign_budget_all').val(  (campaign_budget_month * campaign_period).toFixed(2).replace(".", ",") );
         }
 
         calculate();
 
 
             $("#campaign_budget_all").on("change", function(){
-                $('#campaign_budget_month').val(  ($(this).val() / $('#campaign_period').val()).toFixed(2) );
+                $('#campaign_budget_month').val(  ($(this).val().replace(",", ".") / $('#campaign_period').val()).toFixed(2).replace(".", ",") )
                 calculate();
             });
 
@@ -272,6 +290,12 @@
                 calculate();
             });
 
+
+
+        // Create our number formatter.
+
+
+        // alert( formatter.format(12500.9) ); /* $2,500.00 */
 
     </script>
 </body>
