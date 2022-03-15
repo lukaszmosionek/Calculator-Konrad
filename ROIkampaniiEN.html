@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+
+<div class="container">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Parametry Kampani</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">Okres Kampani (miesiace)</th>
+            <td>
+                <select class="form-select" id="campaign_period" name="">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                </select></td>
+        </tr>
+        <tr>
+            <th scope="row">CPC</th>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="" id="cpc"  step="0.01" value="0.20" class="form-control" name="">
+                    <span class="input-group-text">zł</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Wskaźnik konwersji</th>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="" id="conversion_rate" step="0,01" value="1" class="form-control" name="">
+                    <span class="input-group-text">%</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Średnia wartosc koszyka</th>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="" id="avg_basket_value" step="0,01" value="200" class="form-control" name="">
+                    <span class="input-group-text">zł</span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <!-- ------------------------------------------------ -->
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <td></td>
+            <td>miesiąc</td>
+            <td>całość</td>
+        </tr>
+        <tr>
+            <th scope="row">Budżet kampanii</th>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="" id="campaign_budget_month" step="0,01" value="3000" class="form-control" name="">
+                    <span class="input-group-text">zł</span>
+                </div>
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <input type="" id="campaign_budget_all" step="0,01" value="9000" class="form-control" name="">
+                    <span class="input-group-text">zł</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Liczba kliknięć</th>
+            <td id="count_click_month">12 000</td>
+            <td id="count_click_all">45 000</td>
+        </tr>
+        <tr>
+            <th scope="row">Liczba konwersji</th>
+            <td id="conversion_amount_month">12 000</td>
+            <td id="conversion_amount_all">45 000</td>
+        </tr>
+        <tr>
+            <th scope="row">Przychód</th>
+            <td id="income_month">12 000zł</td>
+            <td id="income_all">45 000zł</td>
+        </tr>
+        <tr>
+            <th scope="row">Zysk</th>
+            <td id="profit_month">12 000</td>
+            <td id="profit_all">45 000</td>
+        </tr>
+        <tr>
+            <th scope="row">ROI</th>
+            <td id="roi_month">0</td>
+            <td id="roi_all"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- ------------------------------------------------ -->
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>uptime</td>
+            <td>downtime</td>
+            <td>miesiąc</td>
+            <td>całość</td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="1" class="percent">100,00%</td>
+            <td>-</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9999" class="percent">99,99%</td>
+            <td>4,383 minut</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9990" class="percent">99,90%</td>
+            <td>43,83 minut</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9980" class="percent">99,80%</td>
+            <td>1 godzina i 27,66 minut</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9970" class="percent">99,70%</td>
+            <td>2 godziny i 11,49 minut</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9950" class="percent">99,50%</td>
+            <td>3 godziny i 39,15 minut</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9800" class="percent">98,00%</td>
+            <td>14 godzin i 36,6 minut</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9700" class="percent">97,00%</td>
+            <td>21 godzin i 54,9 minut</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9500" class="percent">95,00%</td>
+            <td>1 dzień, 12 godzin i 31,5 min</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        <tr class="loses">
+            <td data-percent="0.9000" class="percent">90,00%</td>
+            <td>3 dni, 1 godzina i 3 minuty</td>
+            <td class="month"></td>
+            <td class="all"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+
+        var formatter = new Intl.NumberFormat('en-EN', {
+            style: 'currency',
+            currency: 'PLN',
+
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+
+        var number = new Intl.NumberFormat('en-EN', {
+            // style: 'currency',
+            // currency: 'PLN',
+
+            // These options are needed to round to whole numbers if that's what you want.
+            //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+            //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+        });
+
+        function calculate(){
+            let campaign_period = $('#campaign_period').val();
+            let cpc = $('#cpc').val().replace(",", ".");
+            let conversion_rate = $('#conversion_rate').val().replace(",", ".")/100;
+            let avg_basket_value = $('#avg_basket_value').val().replace(",", ".");
+
+            let campaign_budget_month = $('#campaign_budget_month').val().replace(",", ".");
+            let campaign_budget_all = $('#campaign_budget_all').val().replace(",", ".");
+
+
+            let count_click_month = (campaign_budget_month/cpc).toFixed(2);
+            let count_click_all = (campaign_budget_all/cpc ).toFixed(2);
+            $('#count_click_month').text( number.format(count_click_month));
+            $('#count_click_all').text( number.format(count_click_all));
+
+            let conversion_amount_month = ( count_click_month*conversion_rate );
+            let conversion_amount_all = ( count_click_all*conversion_rate );
+            $('#conversion_amount_month').text( number.format(conversion_amount_month.toFixed(0)));
+            $('#conversion_amount_all').text( number.format(conversion_amount_all.toFixed(0)));
+
+            let income_month = avg_basket_value*conversion_amount_month;
+            let income_all = avg_basket_value*conversion_amount_all;
+            $('#income_month').text( formatter.format(income_month) );
+            $('#income_all').text( formatter.format(income_all) );
+
+            let profit_month = income_month-campaign_budget_month;
+            let profit_all = income_all-campaign_budget_all;
+            $('#profit_month').text( formatter.format(profit_month) );
+            $('#profit_all').text( formatter.format(profit_all) );
+
+            $('#roi_month').text( number.format( profit_month/campaign_budget_month*100 ) + ' %');
+
+            $( ".loses" ).each(function( index ) {
+                let percent = $( this ).children(".percent").data('percent');
+
+                $( this ).children(".month").text( formatter.format( (1-percent)*income_month ));
+                $( this ).children(".all").text( formatter.format( (1-percent)*income_all ) );
+            });
+
+            $('#campaign_budget_all').val(  (campaign_budget_month * campaign_period).toFixed(2) );
+        }
+
+        calculate();
+
+
+            $("#campaign_budget_all").on("change", function(){
+                $('#campaign_budget_month').val(  ($(this).val().replace(",", ".") / $('#campaign_period').val()).toFixed(2).replace(".", ",") )
+                calculate();
+            });
+
+            $("#campaign_period,#cpc,#conversion_rate,#avg_basket_value, #campaign_budget_month").on("change", function(){
+                calculate();
+            });
+
+
+
+        // Create our number formatter.
+
+
+        // alert( formatter.format(12500.9) ); /* $2,500.00 */
+
+    </script>
+</body>
+</html>
